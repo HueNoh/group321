@@ -63,4 +63,10 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String list(Model model, @RequestParam Map map) {
+		//String page = null;
+		return "list";
+	}
+	
 }
