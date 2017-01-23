@@ -3,11 +3,40 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="a.b.c.mybatis.MemberMapper">
-
-	<select id="loginChk" statementType="CALLABLE" resultType="int" parameterType="java.util.HashMap">
+	<!-- 로그인 체크 -->
+	<select id="loginChk" statementType="CALLABLE" resultType="java.util.Integer" parameterType="java.util.HashMap">
 		{
 			call loginChk(#{id},#{pw})
 		}
 	</select>
-
+	<!-- 중복확인 -->
+	<select id="chkIdDup" statementType="CALLABLE" resultType="java.util.Integer" parameterType="java.util.HashMap">
+		{
+			call chkIdDup(#{id})
+		}
+	</select>
+	<!-- 회원등록 -->
+	<select id="insertMember" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			call insertMember(#{id}, #{pw}, #{name})
+		}
+	</select>
+	<!-- 회원삭제 -->
+	<select id="deleteMember" statementType="CALLABLE" parameterType="java.util.HashMap">
+		{
+			call deleteMember(#{id})
+		}
+	</select>
+	<!-- 회원 리스트 -->
+	<select id="selectMember" statementType="CALLABLE" resultType="java.util.List" parameterType="java.util.HashMap">
+		{
+			call selectMember()
+		}
+	</select>
+	<!-- 보드 생성 -->
+	<select id="insertBoard" statementType="CALLABLE" resultType="java.util.Integer" parameterType="java.util.HashMap">
+		{
+			call insertBoard(#{id}, #{title})
+		}
+	</select>
 </mapper>
