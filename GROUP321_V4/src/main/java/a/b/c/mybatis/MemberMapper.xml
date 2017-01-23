@@ -45,4 +45,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			call updateBoard(#{title}, #{bnum})
 		}
 	</select>
+	<!-- 보드 타이틀 수정 -->
+	<select id="deleteBoard" statementType="CALLABLE" resultType="int" parameterType="java.util.HashMap">
+		{
+			call deleteBoard(#{bnum})
+		}
+	</select>
 </mapper>
