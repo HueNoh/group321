@@ -12,7 +12,7 @@
 	<h1>Hello world!</h1>
 
 	<P>The time on the server is ${serverTime}.</P>
-	<p>login_ms11111</p>
+	<p>login</p>
 	<form action="/login" method="post">
 	<table>
 		<tr>
