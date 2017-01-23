@@ -12,4 +12,9 @@ public interface MemberMapper {
 	public int insertBoard(Map map);
 	public int updateBoard(Map map);
 	public int deleteBoard(Map map);
+	public List selectBoard();
+	public int insertList(Map map);
+	public int updateList(Map map);
+	public int deleteList(Map map);
+	public List selectList();
 }

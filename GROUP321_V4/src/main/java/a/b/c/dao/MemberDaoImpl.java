@@ -63,6 +63,36 @@ public class MemberDaoImpl implements MemberDaoInterface {
 		return mapper.deleteBoard(map);
 	}
 
+	@Override
+	public List selectBoard() {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.selectBoard();
+	}
+
+	@Override
+	public int insertList(Map map) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.insertList(map);
+	}
+
+	@Override
+	public int updateList(Map map) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.updateList(map);
+	}
+
+	@Override
+	public int deleteList(Map map) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.deleteList(map);
+	}
+
+	@Override
+	public List selectList() {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.selectList();
+	}
+
 	
 
 }

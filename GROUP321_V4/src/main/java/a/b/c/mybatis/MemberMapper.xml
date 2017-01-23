@@ -45,10 +45,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			call updateBoard(#{title}, #{bnum})
 		}
 	</select>
-	<!-- 보드 타이틀 수정 -->
+	<!-- 보드 삭제 -->
 	<select id="deleteBoard" statementType="CALLABLE" resultType="int" parameterType="java.util.HashMap">
 		{
 			call deleteBoard(#{bnum})
+		}
+	</select>
+	<!-- 보드 보기 -->
+	<select id="selectBoard" statementType="CALLABLE" resultType="java.util.List" parameterType="java.util.HashMap">
+		{
+			call selectBoard()
+		}
+	</select>
+	<!-- 리스트 생성 -->
+	<select id="insertList" statementType="CALLABLE" resultType="int" parameterType="java.util.HashMap">
+		{
+			call insertList(#{id}, #{title}, #{bnum})
+		}
+	</select>
+	<!-- 리스트 타이틀 수정 -->
+	<select id="updateList" statementType="CALLABLE" resultType="int" parameterType="java.util.HashMap">
+		{
+			call updateList(#{title}, #{bnum}, #{lnum})
+		}
+	</select>
+	<!-- 리스트 삭제 -->
+	<select id="deleteList" statementType="CALLABLE" resultType="int" parameterType="java.util.HashMap">
+		{
+			call deleteList(#{bnum}, #{lnum})
+		}
+	</select>
+	<!-- 리스트 보기 -->
+	<select id="selectList" statementType="CALLABLE" resultType="java.util.List" parameterType="java.util.HashMap">
+		{
+			call selectList()
 		}
 	</select>
 </mapper>
