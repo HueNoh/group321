@@ -1,5 +1,6 @@
 package a.b.c.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -37,11 +38,19 @@ public class MemberDaoImpl implements MemberDaoInterface {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.deleteMember(map);
 	}
-
+	
+	@Override
+	public List selectMember() {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.selectMember();
+	}
+	
 	@Override
 	public int insertBoard(Map map) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.insertBoard(map);
 	}
+
+	
 
 }
