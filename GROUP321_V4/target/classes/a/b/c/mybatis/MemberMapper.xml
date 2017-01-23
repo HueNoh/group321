@@ -16,13 +16,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		}
 	</select>
 	<!-- 회원등록 -->
-	<select id="insertMember" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<select id="insertMember" statementType="CALLABLE" resultType="java.util.Integer" parameterType="java.util.HashMap">
 		{
 			call insertMember(#{id}, #{pw}, #{name})
 		}
 	</select>
 	<!-- 회원삭제 -->
-	<select id="deleteMember" statementType="CALLABLE" parameterType="java.util.HashMap">
+	<select id="deleteMember" statementType="CALLABLE" resultType="java.util.Integer" parameterType="java.util.HashMap">
 		{
 			call deleteMember(#{id})
 		}
@@ -37,6 +37,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="insertBoard" statementType="CALLABLE" resultType="java.util.Integer" parameterType="java.util.HashMap">
 		{
 			call insertBoard(#{id}, #{title})
+		}
+	</select>
+	<!-- 보드 타이틀 수정 -->
+	<select id="updateBoard" statementType="CALLABLE" resultType="java.util.Integer" parameterType="java.util.HashMap">
+		{
+			call updateBoard(#{title}, #{bnum))
 		}
 	</select>
 </mapper>
