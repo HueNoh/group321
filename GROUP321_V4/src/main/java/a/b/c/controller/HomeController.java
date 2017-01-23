@@ -27,46 +27,54 @@ import a.b.c.service.MemberServiceInterface;
  */
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	MemberServiceInterface memberService;
-		
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
+
 		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		int[] arr2 = {1,2,3,4,5};
+
+		model.addAttribute("serverTime", formattedDate);
+		int[] arr2 = { 1, 2, 3, 4, 5 };
 		System.out.println(arr2.length);
 		return "home";
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String test(Model model, @RequestParam Map map) {
-		//String page = null;
-		
+		// String page = null;
+
 		int result = memberService.loginChk(map);
 		System.out.println(result);
-		
+
 		model.addAttribute("loginChk", result);
 
-		return "home";
+		String loginChk = null;
+
+		if (result == 0) {
+			loginChk = "board";
+		} else {
+			loginChk = "home";
+			model.addAttribute("err", "아이디와 비밀번호를 확인해 주세요.");
+		}
+		return loginChk;
 	}
-	
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, @RequestParam Map map) {
-		//String page = null;
+		// String page = null;
 		return "list";
 	}
-	
+
 }

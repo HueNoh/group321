@@ -28,7 +28,7 @@
 		</tr>
 	</table>
 	</form>
-	${loginChk}<br>
+	${err}<br>
 	
 </body>
 </html>
