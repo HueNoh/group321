@@ -59,7 +59,7 @@ public class HomeController {
 		System.out.println(result);
 		
 		model.addAttribute("loginChk", result);
-		
+
 		return "home";
 	}
 	
