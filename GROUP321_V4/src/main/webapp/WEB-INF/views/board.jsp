@@ -68,7 +68,7 @@
 
 			var div = document.createElement('div');
 			div.id = 'board' + arrBoard.b_num;
-			div.className = 'board';
+			div.className = 'board'; 
 
 			var aTag = document.createElement('a');
 			var createAText = document.createTextNode('프로젝트' + arrBoard.b_num);
