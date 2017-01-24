@@ -28,7 +28,7 @@ public interface MemberDaoInterface {
 
 	public int deleteList(Map map);
 
-	public List selectList();
+	public List selectList(Map map);
 
 	public List searchBoard(Map map);
 

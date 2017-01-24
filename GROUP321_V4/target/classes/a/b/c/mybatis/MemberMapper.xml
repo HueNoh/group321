@@ -91,7 +91,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectList" statementType="CALLABLE" resultType="java.util.List"
 		parameterType="java.util.HashMap">
 		{
-		call selectList()
+			call selectList(#{bnum})
 		}
 	</select>
 	<!-- 보드 검색 -->

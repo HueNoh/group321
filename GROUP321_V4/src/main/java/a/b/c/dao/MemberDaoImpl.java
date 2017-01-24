@@ -88,9 +88,9 @@ public class MemberDaoImpl implements MemberDaoInterface {
 	}
 
 	@Override
-	public List selectList() {
+	public List selectList(Map map) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.selectList();
+		return mapper.selectList(map);
 	}
 
 	public List searchBoard(Map map) {
@@ -121,5 +121,7 @@ public class MemberDaoImpl implements MemberDaoInterface {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.maxCh_num(map);
 	}
+
+
 
 }

@@ -28,6 +28,8 @@ public interface MemberMapper {
 
 	public int deleteList(Map map);
 
+	public List selectList(Map map);
+
 	public List selectList();
 
 	public List searchBoard(Map map);
@@ -39,5 +41,4 @@ public interface MemberMapper {
 	public List msgSelect(Map map);
 
 	public List maxCh_num(Map map);
-
 }
