@@ -69,7 +69,7 @@ body, #content {
 			var aTag = document.createElement('a');
 			var createAText = document.createTextNode('프로젝트' + b_num);
 
-			aTag.setAttribute('href', 'listView?b_num=' + b_num);
+			aTag.setAttribute('href', '/main/list?b_num=' + b_num);
 			aTag.appendChild(createAText);
 			div.appendChild(aTag);
 

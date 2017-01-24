@@ -14,7 +14,9 @@
 <style>
 </style>
 <script>
-	var webSocket = new WebSocket('ws://211.183.8.14/socket');
+	var b_num= ${b_num};
+
+var webSocket = new WebSocket('ws://211.183.8.14/socket');
 	webSocket.onerror = function(event) {
 		onError(event)
 	};
@@ -29,8 +31,12 @@
 	window.onload = function() {
 
 		$.ajax({
-			url : '/main/searchList',
+			url : '/main/searchList'
 			method : 'post'
+			data:{
+				DATA:b_num
+				
+			}
 		}).done(function(msg) {
 			var jArr = JSON.parse(msg);
 			$.each(jArr, function(i) {
