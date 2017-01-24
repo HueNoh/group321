@@ -81,8 +81,9 @@ public class HomeController {
 	
 	@RequestMapping(value = "/hstest", method = RequestMethod.GET)
 	public String hstest(Model model, @RequestParam Map map) {
-		// String page = null;
+		
 		return "hs_test";
+		
 	}
 
 }
