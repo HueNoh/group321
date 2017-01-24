@@ -69,7 +69,6 @@
 			});
 
 		});
-
 	};
 
 	function addList() {
@@ -99,6 +98,7 @@
 			div.appendChild(aTag);
 
 			document.getElementById('createList').appendChild(div);
+			console.log('');
 		});
 	}
 </script>
