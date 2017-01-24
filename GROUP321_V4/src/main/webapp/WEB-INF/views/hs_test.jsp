@@ -15,7 +15,8 @@ function loginChk(){
 	console.log(arr);
 	var jsonStr = JSON.stringify(arr);
 	console.log(jsonStr);
-	var url = '/loginChk';
+	var url = '/hstest/loginChk';
+
 	doAjax(jsonStr, url);
 };
 
@@ -36,10 +37,17 @@ function doAjax(jsonStr, url) {
 </head>
 <body>
 <h1>DB Test</h1>
+return: <span id="display"></span>${string}<br>
 <input type="text" name="id" id="loginChk_id">
 <input type="password" name="pw" id="loginChk_pw">
-<input type="button" onclick="loginChk()" value="loginChk">
-로그인체크: ${loginChk}<br>
+<input type="button" onclick="loginChk()" value="loginChk"><br>
+<hr>
+<input type="text" name="id" id="insertBoard_id">
+<input type="text" name="title" id="insertBoard_title">
+<input type="button" onclick="insertBoard()" value="insertBoard"><br>
+<hr>
+
+
 
 
 </body>
