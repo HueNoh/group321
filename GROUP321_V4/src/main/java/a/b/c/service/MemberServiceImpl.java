@@ -27,13 +27,19 @@ public class MemberServiceImpl implements MemberServiceInterface {
 	@Override
 	public List searchBoard(Map map) {
 		// TODO Auto-generated method stub
-		return memberDao.searchBoard(map);
+		return memberDao.selectBoard();
+	}
+
+	@Override
+	public List searchCard(Map map) {
+		// TODO Auto-generated method stub
+		System.out.println("!!!!!!!!!!!!!!!!!!!!: " + memberDao.selectCard(map));
+		return memberDao.selectCard(map);
 	}
 
 	@Override
 	public List searchList(Map map) {
 		// TODO Auto-generated method stub
-		System.out.println(map);
 		return memberDao.selectList(map);
 	}
 
@@ -44,9 +50,7 @@ public class MemberServiceImpl implements MemberServiceInterface {
 		int result = memberDao.insertBoard(map);
 		List list = new ArrayList<>();
 		if (-1 != result) {
-			System.out.println(result);
 			list = memberDao.selectBoard();
-			System.out.println(list);
 		}
 		return list;
 	}
@@ -55,13 +59,22 @@ public class MemberServiceImpl implements MemberServiceInterface {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public List insertList(Map map) {
 		// TODO Auto-generated method stub
-		System.out.println(map);
 		int result = memberDao.insertList(map);
 		List list = new ArrayList<>();
 		if (-1 != result) {
-			System.out.println(result);
 			list = memberDao.selectList(map);
-			System.out.println(list);
+		}
+		return list;
+	}
+	
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public List insertCard(Map map) {
+		// TODO Auto-generated method stub
+		int result = memberDao.insertCard(map);
+		List list = new ArrayList<>();
+		if (-1 != result) {
+			list = memberDao.selectCard(map);
 		}
 		return list;
 	}

@@ -11,11 +11,18 @@
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link rel="stylesheet" href="/resources/css/slidebars.css">
 <link rel="stylesheet" href="/resources/css/style.css">
+<script src="/resources/js/slidebars.atj.js"></script>
 <style>
 #addList, .createList, .list {
 	width: 150px;
 	height: 150px;
 	margin: 5px;
+	border: 1px solid black;
+	float: left;
+}
+
+.card, .addCard {
+	width: 100%;
 	border: 1px solid black;
 	float: left;
 }
@@ -47,22 +54,57 @@
 				bnum : '${b_num}'
 			}
 		}).done(function(msg) {
-			var jArr = JSON.parse(msg);
-			$.each(jArr, function(i) {
-				var l_num = jArr[i].l_num;
-				console.log(l_num);
+			var listArr = JSON.parse(msg);
+			$.each(listArr, function(i) {
 
+				var l_num = listArr[i].l_num;
+				var id='list' + l_num;
 				var div = document.createElement('div');
-				var text = '';
 				div.id = 'list' + l_num;
 				div.className = 'list';
+			
+				$.ajax({
+					url : '/main/searchCard',
+					method : 'post',
+					data : {
+						bnum : '${b_num}',
+						lnum : l_num
+					}
+				}).done(function(msg) {
+					var cardArr = JSON.parse(msg);
+					
+					$.each(cardArr, function(i) {
+						var cardDiv = document.createElement('div');
+						var c_num= cardArr[i].c_num;
 
+						cardDiv.id = 'card' + c_num;
+						cardDiv.className = 'card';
+
+						var aCard = document.createElement('a');
+						var createCardText = document.createTextNode('card'+c_num );
+
+						aCard.setAttribute('href', '#');
+						aCard.appendChild(createCardText);
+						cardDiv.appendChild(aCard);
+						div.appendChild(cardDiv);
+
+					});
+
+				});
+				
+				var addCardDiv = document.createElement('div');
+				addCardDiv.className = 'addCard';
+			 
 				var aTag = document.createElement('a');
-				var createAText = document.createTextNode('리스트' + l_num);
-
+				var createAText = document.createTextNode('addCard');
+				
 				aTag.setAttribute('href', '#');
+				aTag.setAttribute('className', 'aaaa');
+				aTag.setAttribute('onClick', 'addCard(' + l_num
+						+ ',\'' + id + '\')');
 				aTag.appendChild(createAText);
-				div.appendChild(aTag);
+				addCardDiv.appendChild(aTag); 
+				div.appendChild(addCardDiv); 
 
 				document.getElementById('viewList').appendChild(div);
 
@@ -83,22 +125,57 @@
 			}
 
 		}).done(function(msg) {
-
+				
 			var arrList = JSON.parse(msg);
-
+			var id='List' + arrList.l_num;
 			var div = document.createElement('div');
-			div.id = 'List' + arrList.l_num;
+			div.id = id;
 			div.className = 'list';
 
 			var aTag = document.createElement('a');
-			var createAText = document.createTextNode('List' + arrList.l_num);
+			var createAText = document.createTextNode('addCard');
+			aTag.setAttribute('href', '#');
+			aTag.setAttribute('className', 'aaaa');
+			aTag.setAttribute('onClick', 'addCard(' + arrList.l_num
+					+ ',\'' + id + '\')');
 
-			aTag.setAttribute('href', '/main/list?b_num=' + arrList.l_num);
 			aTag.appendChild(createAText);
 			div.appendChild(aTag);
 
 			document.getElementById('createList').appendChild(div);
-			console.log('');
+		});
+	}
+
+
+	function addCard(l_num, id) {
+		console.log(id)
+		$.ajax({
+			method : 'post',
+			url : '/main/createCard',
+			data : {
+				id : 'test1',
+				title : 'TestTitle',
+				bnum : b_num,
+				lnum : l_num
+
+			}
+
+		}).done(function(msg) {
+			var cardArr = JSON.parse(msg);
+
+			var newCard = document.createElement('div');
+			var c_num = cardArr.c_num;
+
+			newCard.id = 'card' + c_num;
+			newCard.className = 'card';
+
+			var aCard = document.createElement('a');
+			var createCardText = document.createTextNode('card' + c_num);
+
+			aCard.setAttribute('href', '#');
+			aCard.appendChild(createCardText);
+			newCard.appendChild(aCard);
+			document.getElementById(id).appendChild(newCard);
 		});
 	}
 </script>
@@ -129,13 +206,18 @@
 				<li class="link"><a href="#" class="link_tag1">Board</a></li>
 				<li class="link"><a href="#" class="link_tag2" id="myBtn">History</a>
 				</li>
-				<li class="link"><a href="#" class="link_tag3">Chatting</a></li>
+				<li class="link"><a href="#" onclick="openChat();"
+					class="link_tag3">Chatting</a></li>
 				<li class="link"><a href="#" class="link_tag4">File</a></li>
 				<li class="link"><a href="#" class="link_tag5">Members</a></li>
 			</ul>
 		</ul>
 	</div>
 
+	<%-- <div id="mySidenavChat" class="sidenav-chat">
+		<a href="javascript:void(0)" class="closebtn" onclick="closeChat()">&times;</a>
+		<jsp:include page="websocket.jsp"></jsp:include>
+	</div> --%>
 
 	<div id=myModal class="modal">
 		<div class="modal-content">
@@ -187,10 +269,10 @@
 	</div>
 
 
-
 </body>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="/resources/js/slidebars.js"></script>
 <script src="/resources/js/scripts.js"></script>
+
 </html>

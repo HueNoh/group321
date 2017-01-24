@@ -19,7 +19,9 @@
 
 <script type="text/javascript">
 	var inputMessage = document.getElementById('inputMessage');
+		
 	var sessionId = $('#id').val();
+	
 	var html = '';
 	var userHtml = '';
 

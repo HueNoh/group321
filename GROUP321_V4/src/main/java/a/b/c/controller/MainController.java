@@ -52,25 +52,9 @@ public class MainController {
 	public String searchBoard(Locale locale, Model model, HttpSession session, HttpServletRequest request,
 			@RequestParam Map map) {
 
-		Gson gson = new Gson();
-		JsonArray jArr = new JsonArray();
+		List list = memberService.searchBoard(map);
 
-		try {
-			List list = memberService.searchBoard(map);
-
-			for (int i = 0; i < list.size(); i++) {
-				map = (Map) list.get(i);
-				JsonObject obj = new JsonObject();
-				obj.addProperty("b_num", (int) map.get("b_num"));
-				jArr.add(obj);
-			}
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return gson.toJson(jArr);
+		return new Gson().toJson(list);
 	}
 
 	@RequestMapping(value = "/searchList", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
@@ -78,12 +62,21 @@ public class MainController {
 	public String searchList(Locale locale, Model model, HttpSession session, HttpServletRequest request,
 			@RequestParam Map map) {
 
-		Gson gson = new Gson();
-		System.out.println(map);
 		List list = memberService.searchList(map);
-		System.out.println("List : " + list);
 
-		return gson.toJson(list);
+		return new Gson().toJson(list);
+	}
+
+	@RequestMapping(value = "/searchCard", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String searchCard(Locale locale, Model model, HttpSession session, HttpServletRequest request,
+			@RequestParam Map map) {
+
+		System.out.println("!@#!@#!@#!");
+		List list = memberService.searchCard(map);
+		System.out.println(list);
+
+		return new Gson().toJson(list);
 	}
 
 	@RequestMapping(value = "/createBoard", method = { RequestMethod.POST,
@@ -92,10 +85,9 @@ public class MainController {
 	public String createBoard(Locale locale, Model model, HttpSession session, HttpServletRequest request,
 			@RequestParam Map map) {
 
-		Gson gson = new Gson();
 		List list = memberService.insertBoard(map);
 		Map lastList = (Map) list.get(list.size() - 1);
-		return gson.toJson(lastList);
+		return new Gson().toJson(lastList);
 	}
 
 	@RequestMapping(value = "/createList", method = { RequestMethod.POST,
@@ -104,10 +96,19 @@ public class MainController {
 	public String createList(Locale locale, Model model, HttpSession session, HttpServletRequest request,
 			@RequestParam Map map) {
 
-		Gson gson = new Gson();
-		System.out.println(map);
 		List list = memberService.insertList(map);
 		Map lastBoard = (Map) list.get(list.size() - 1);
-		return gson.toJson(lastBoard);
+		return new Gson().toJson(lastBoard);
+	}
+
+	@RequestMapping(value = "/createCard", method = { RequestMethod.POST,
+			RequestMethod.GET }, produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String createCard(Locale locale, Model model, HttpSession session, HttpServletRequest request,
+			@RequestParam Map map) {
+
+		List list = memberService.insertCard(map);
+		Map lastBoard = (Map) list.get(list.size() - 1);
+		return new Gson().toJson(lastBoard);
 	}
 }

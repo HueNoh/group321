@@ -30,7 +30,13 @@ public interface MemberDaoInterface {
 
 	public List selectList(Map map);
 
-	public List searchBoard(Map map);
+	public int insertCard(Map map);
+
+	public int updateCard(Map map);
+
+	public int deleteCard(Map map);
+
+	public List selectCard(Map map);
 
 	public int msgInsert(Map map);
 

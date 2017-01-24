@@ -93,21 +93,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		call selectList(#{bnum})
 		}
 	</select>
-	<!-- 보드 검색 -->
-	<select id="searchBoard" resultType="java.util.HashMap"
-		parameterType="java.util.HashMap">
-		select
-		b_num
-		FROM tb_board
-		WHERE
-		cate = "B"
 
+	<!-- 카드 생성 -->
+	<select id="insertCard" statementType="CALLABLE" resultType="int"
+		parameterType="java.util.HashMap">
+		{
+		call insertCard(#{id}, #{title}, #{bnum}, #{lnum})
+		}
+	</select>
+	<!-- 카드 타이틀 수정 -->
+	<select id="updateCard" statementType="CALLABLE" resultType="int"
+		parameterType="java.util.HashMap">
+		{
+		call updateCard(#{title}, #{bnum}, #{lnum},#{cnum})
+		}
+	</select>
+	<!-- 카드 삭제 -->
+	<select id="deleteCard" statementType="CALLABLE" resultType="int"
+		parameterType="java.util.HashMap">
+		{
+		call deleteCard(#{bnum}, #{lnum},#{cnum})
+		}
+	</select>
+	<!-- 카드 보기 -->
+	<select id="selectCard" statementType="CALLABLE" resultType="java.util.HashMap"
+		parameterType="java.util.HashMap">
+		{
+		call selectCard(#{bnum},#{lnum})
+		}
 	</select>
 
-	<!-- 리스트 검색 -->
-	<!-- <select id="searchList" resultType="java.util.HashMap" parameterType="java.util.HashMap"> 
-		select * FROM tb_board <if test="null != #{b_num}"> WHERE b_num= #{b_num} 
-		AND cate = "L" </if> </select> -->
 
 	<insert id="msgInsert" parameterType="java.util.HashMap">
 		insert into tb_chat (

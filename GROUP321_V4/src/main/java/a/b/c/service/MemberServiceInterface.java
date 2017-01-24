@@ -11,6 +11,8 @@ public interface MemberServiceInterface {
 
 	public List searchList(Map map);
 
+	public List searchCard(Map map);
+
 	public int msgInsert(Map map) throws Exception;
 
 	public List msgSelect(Map map) throws Exception;
@@ -18,4 +20,6 @@ public interface MemberServiceInterface {
 	public List insertBoard(Map map);
 
 	public List insertList(Map map);
+
+	public List insertCard(Map map);
 }
