@@ -11,7 +11,7 @@ import a.b.c.mybatis.MemberMapper;
 
 @Repository
 public class MemberDaoImpl implements MemberDaoInterface {
-	
+
 	@Autowired
 	private SqlSession sqlSession;
 
@@ -38,13 +38,13 @@ public class MemberDaoImpl implements MemberDaoInterface {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.deleteMember(map);
 	}
-	
+
 	@Override
 	public List selectMember() {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.selectMember();
 	}
-	
+
 	@Override
 	public int insertBoard(Map map) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
@@ -93,6 +93,33 @@ public class MemberDaoImpl implements MemberDaoInterface {
 		return mapper.selectList();
 	}
 
-	
+	public List searchBoard(Map map) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.searchBoard(map);
+	}
+
+	@Override
+	public List searchList(Map map) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.searchList(map);
+	}
+
+	@Override
+	public int msgInsert(Map map) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.msgInsert(map);
+	}
+
+	@Override
+	public List msgSelect(Map map) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.msgSelect(map);
+	}
+
+	@Override
+	public List maxCh_num(Map map) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.maxCh_num(map);
+	}
 
 }
