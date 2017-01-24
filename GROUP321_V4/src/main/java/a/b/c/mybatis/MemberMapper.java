@@ -30,11 +30,7 @@ public interface MemberMapper {
 
 	public List selectList(Map map);
 
-	public List selectList();
-
 	public List searchBoard(Map map);
-
-	public List searchList(Map map);
 
 	public int msgInsert(Map map);
 

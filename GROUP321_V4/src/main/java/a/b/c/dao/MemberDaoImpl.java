@@ -89,6 +89,7 @@ public class MemberDaoImpl implements MemberDaoInterface {
 
 	@Override
 	public List selectList(Map map) {
+		System.out.println(map);
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.selectList(map);
 	}
@@ -96,12 +97,6 @@ public class MemberDaoImpl implements MemberDaoInterface {
 	public List searchBoard(Map map) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.searchBoard(map);
-	}
-
-	@Override
-	public List searchList(Map map) {
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.searchList(map);
 	}
 
 	@Override
@@ -121,7 +116,5 @@ public class MemberDaoImpl implements MemberDaoInterface {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.maxCh_num(map);
 	}
-
-
 
 }

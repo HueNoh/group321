@@ -57,7 +57,6 @@ public class MainController {
 
 		try {
 			List list = memberService.searchBoard(map);
-			System.out.println(list);
 
 			for (int i = 0; i < list.size(); i++) {
 				map = (Map) list.get(i);
@@ -65,11 +64,9 @@ public class MainController {
 				obj.addProperty("b_num", (int) map.get("b_num"));
 				jArr.add(obj);
 			}
-			System.out.println(jArr);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println("dd");
 			e.printStackTrace();
 		}
 
@@ -82,46 +79,35 @@ public class MainController {
 			@RequestParam Map map) {
 
 		Gson gson = new Gson();
-		JsonObject jobj = gson.fromJson((String) map.get("DATA"), JsonObject.class);
-		JsonElement je = jobj.get("b_num");
-		map.put("b_num", je.getAsInt());
-		JsonArray jArr = new JsonArray();
-		try {
-			List list = memberService.searchList(map);
-			System.out.println("list : " + list);
-			for (int i = 0; i < list.size(); i++) {
-				map = (Map) list.get(i);
-				JsonObject obj = new JsonObject();
-				obj.addProperty("l_num", (int) map.get("l_num"));
-				jArr.add(obj);
-			}
-			System.out.println(jArr);
+		System.out.println(map);
+		List list = memberService.searchList(map);
+		System.out.println("List : " + list);
 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return gson.toJson(jArr);
+		return gson.toJson(list);
 	}
 
-	/*
-	 * @RequestMapping(value = "/createBoard", method = RequestMethod.POST,
-	 * produces = "text/plain;charset=UTF-8")
-	 * 
-	 * @ResponseBody public String createBoard(Locale locale, Model model,
-	 * HttpSession session, HttpServletRequest request,
-	 * 
-	 * @RequestParam Map map) {
-	 * 
-	 * Gson gson = new Gson(); JsonObject obj = new JsonObject(); try { int
-	 * result = memberService.createBoard(map); if (0 < result) {
-	 * 
-	 * obj.addProperty("b_num", result);
-	 * 
-	 * } } catch (Exception e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); }
-	 * 
-	 * return gson.toJson(obj); }
-	 */
+	@RequestMapping(value = "/createBoard", method = { RequestMethod.POST,
+			RequestMethod.GET }, produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String createBoard(Locale locale, Model model, HttpSession session, HttpServletRequest request,
+			@RequestParam Map map) {
+
+		Gson gson = new Gson();
+		List list = memberService.insertBoard(map);
+		Map lastList = (Map) list.get(list.size() - 1);
+		return gson.toJson(lastList);
+	}
+
+	@RequestMapping(value = "/createList", method = { RequestMethod.POST,
+			RequestMethod.GET }, produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String createList(Locale locale, Model model, HttpSession session, HttpServletRequest request,
+			@RequestParam Map map) {
+
+		Gson gson = new Gson();
+		System.out.println(map);
+		List list = memberService.insertList(map);
+		Map lastBoard = (Map) list.get(list.size() - 1);
+		return gson.toJson(lastBoard);
+	}
 }

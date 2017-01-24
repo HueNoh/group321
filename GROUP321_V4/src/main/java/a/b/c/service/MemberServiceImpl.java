@@ -1,5 +1,6 @@
 package a.b.c.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,41 @@ public class MemberServiceImpl implements MemberServiceInterface {
 	@Override
 	public List searchList(Map map) {
 		// TODO Auto-generated method stub
-		return memberDao.searchList(map);
+		System.out.println(map);
+		return memberDao.selectList(map);
+	}
+
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public List insertBoard(Map map) {
+		// TODO Auto-generated method stub
+		int result = memberDao.insertBoard(map);
+		List list = new ArrayList<>();
+		if (-1 != result) {
+			System.out.println(result);
+			list = memberDao.selectBoard();
+			System.out.println(list);
+		}
+		return list;
+	}
+
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public List insertList(Map map) {
+		// TODO Auto-generated method stub
+		System.out.println(map);
+		int result = memberDao.insertList(map);
+		List list = new ArrayList<>();
+		if (-1 != result) {
+			System.out.println(result);
+			list = memberDao.selectList(map);
+			System.out.println(list);
+		}
+		return list;
+	}
+
+	public List selectBoard() {
+		return memberDao.selectBoard();
 	}
 
 	@Override

@@ -32,8 +32,6 @@ public interface MemberDaoInterface {
 
 	public List searchBoard(Map map);
 
-	public List searchList(Map map);
-
 	public int msgInsert(Map map);
 
 	public List msgSelect(Map map);

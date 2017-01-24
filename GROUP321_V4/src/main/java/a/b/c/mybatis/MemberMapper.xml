@@ -60,8 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		}
 	</select>
 	<!-- 보드 보기 -->
-	<select id="selectBoard" statementType="CALLABLE" resultType="java.util.List"
-		parameterType="java.util.HashMap">
+	<select id="selectBoard" statementType="CALLABLE" resultType="java.util.HashMap">
 		{
 		call selectBoard()
 		}
@@ -88,10 +87,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		}
 	</select>
 	<!-- 리스트 보기 -->
-	<select id="selectList" statementType="CALLABLE" resultType="java.util.List"
+	<select id="selectList" statementType="CALLABLE" resultType="java.util.HashMap"
 		parameterType="java.util.HashMap">
 		{
-			call selectList(#{bnum})
+		call selectList(#{bnum})
 		}
 	</select>
 	<!-- 보드 검색 -->
@@ -99,24 +98,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		parameterType="java.util.HashMap">
 		select
 		b_num
-		FROM tb_board1
+		FROM tb_board
 		WHERE
 		cate = "B"
 
 	</select>
 
 	<!-- 리스트 검색 -->
-	<select id="searchList" resultType="java.util.HashMap"
-		parameterType="java.util.HashMap">
-		select *
-		FROM tb_board1
-		<if test="null != #{b_num}">
-			WHERE b_num= #{b_num}
-			AND cate = "L"
-		</if>
-	</select>
+	<!-- <select id="searchList" resultType="java.util.HashMap" parameterType="java.util.HashMap"> 
+		select * FROM tb_board <if test="null != #{b_num}"> WHERE b_num= #{b_num} 
+		AND cate = "L" </if> </select> -->
+
 	<insert id="msgInsert" parameterType="java.util.HashMap">
-		insert into tb_chat1 (
+		insert into tb_chat (
 		b_num
 		,ch_num
 		,m_id
@@ -132,14 +126,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="msgSelect" resultType="java.util.HashMap"
 		parameterType="java.util.HashMap">
 		SELECT m_id, content
-		FROM tb_chat1
+		FROM tb_chat
 		WHERE
 		b_num=#{b_num}
 	</select>
 	<select id="maxCh_num" resultType="java.util.HashMap"
 		parameterType="java.util.HashMap">
 		select MAX(ch_num)
-		from tb_chat1
+		from tb_chat
 		<if test="null!= b_num">
 			WHERE b_num=#{b_num}
 		</if>

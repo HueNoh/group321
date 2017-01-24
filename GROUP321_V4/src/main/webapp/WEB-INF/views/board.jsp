@@ -20,7 +20,7 @@
 	float: left;
 }
 
-body, #content {
+#content {
 	height: 100%;
 }
 </style>
@@ -32,7 +32,7 @@ body, #content {
 		}).done(function(msg) {
 			var jArr = JSON.parse(msg);
 			$.each(jArr, function(i) {
-				var b_num = i + 1;
+				var b_num = jArr[i].b_num;
 				var div = document.createElement('div');
 				var text = '';
 				div.id = 'board' + b_num;
@@ -56,20 +56,24 @@ body, #content {
 	function addBoard() {
 		$.ajax({
 			method : 'post',
-			url : '/main/createBoard'
+			url : '/main/createBoard',
+			data : {
+				id : 'test1',
+				title : 'testTitle'
+			}
 
 		}).done(function(msg) {
-			var obj = JSON.parse(msg);
-			var b_num = obj.b_num;
+
+			var arrBoard = JSON.parse(msg);
 
 			var div = document.createElement('div');
-			div.id = 'board' + b_num;
+			div.id = 'board' + arrBoard.b_num;
 			div.className = 'board';
 
 			var aTag = document.createElement('a');
-			var createAText = document.createTextNode('프로젝트' + b_num);
+			var createAText = document.createTextNode('프로젝트' + arrBoard.b_num);
 
-			aTag.setAttribute('href', '/main/list?b_num=' + b_num);
+			aTag.setAttribute('href', '/main/list?b_num=' + arrBoard.b_num);
 			aTag.appendChild(createAText);
 			div.appendChild(aTag);
 
