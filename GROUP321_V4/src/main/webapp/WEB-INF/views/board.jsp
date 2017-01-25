@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false" contentType="text/html; charset=UTF-8"%>
-
+<%@ page session="true" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +27,7 @@
 	window.onload = function() {
 		$.ajax({
 			url : '/main/searchBoard',
-			method : 'post'
+			method : 'post',
 		}).done(function(msg) {
 			var jArr = JSON.parse(msg);
 			$.each(jArr, function(i) {
@@ -58,7 +57,7 @@
 			method : 'post',
 			url : '/main/createBoard',
 			data : {
-				id : 'test1',
+				id : '${sessionScope.id}',
 				title : 'testTitle'
 			}
 
@@ -68,7 +67,7 @@
 
 			var div = document.createElement('div');
 			div.id = 'board' + arrBoard.b_num;
-			div.className = 'board'; 
+			div.className = 'board';
 
 			var aTag = document.createElement('a');
 			var createAText = document.createTextNode('프로젝트' + arrBoard.b_num);
@@ -83,6 +82,7 @@
 </script>
 </head>
 <body>
+	${sessionScope.id }
 	<nav>
 		<div align="center" class="nav">
 			<img src="/resources/images/logo.JPG" alt="Main" class="main_img">

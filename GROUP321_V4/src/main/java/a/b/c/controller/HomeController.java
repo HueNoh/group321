@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,18 +55,22 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String test(Model model, @RequestParam Map map) {
+	public String login(Model model, @RequestParam Map map, HttpSession session, HttpServletRequest request) {
 		// String page = null;
 
 		int result = memberService.loginChk(map);
 		System.out.println(result);
-
+		System.out.println(map.get("id"));
+		System.out.println(map.get("pw"));
 		model.addAttribute("loginChk", result);
 
 		String loginChk = null;
 
 		if (result == 0) {
-			loginChk = "board";
+			session = request.getSession();
+			session.setAttribute("id", map.get("id"));
+			loginChk = "redirect:/main/board";
+
 		} else {
 			loginChk = "home";
 			model.addAttribute("err", "아이디와 비밀번호를 확인해 주세요.");
@@ -78,12 +83,12 @@ public class HomeController {
 		// String page = null;
 		return "list";
 	}
-	
+
 	@RequestMapping(value = "/hstest", method = RequestMethod.GET)
 	public String hstest(Model model, @RequestParam Map map) {
-		
+
 		return "hs_test";
-		
+
 	}
 
 }

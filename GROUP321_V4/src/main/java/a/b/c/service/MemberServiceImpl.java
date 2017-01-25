@@ -27,13 +27,16 @@ public class MemberServiceImpl implements MemberServiceInterface {
 	@Override
 	public List searchBoard(Map map) {
 		// TODO Auto-generated method stub
-		return memberDao.selectBoard();
+		List list = memberDao.selectBoardMember(map);
+
+		// 자신의 아이디가 포함된 보더검색
+		return memberDao.selectBoardMember(map);
+		// return memberDao.selectBoard(); 보더 전체검색
 	}
 
 	@Override
 	public List searchCard(Map map) {
 		// TODO Auto-generated method stub
-		System.out.println("!!!!!!!!!!!!!!!!!!!!: " + memberDao.selectCard(map));
 		return memberDao.selectCard(map);
 	}
 
@@ -66,7 +69,7 @@ public class MemberServiceImpl implements MemberServiceInterface {
 		}
 		return list;
 	}
-	
+
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public List insertCard(Map map) {

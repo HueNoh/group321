@@ -30,30 +30,29 @@ public class MainController {
 	MemberServiceInterface memberService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Model model, @RequestParam Map map, HttpServletRequest request, HttpSession session) {
 
-		return "home";
+		return loginChk(map, request, session, "board");
 	}
 
 	@RequestMapping(value = "/board", method = RequestMethod.GET)
-	public String board(Model model, @RequestParam Map map) {
-		// String page = null;
-		return "board";
+	public String board(Model model, @RequestParam Map map, HttpServletRequest request, HttpSession session) {
+		return loginChk(map, request, session, "board");
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model, @RequestParam Map map, HttpServletRequest request) {
+	public String list(Model model, @RequestParam Map map, HttpServletRequest request, HttpSession session) {
 		model.addAttribute("b_num", request.getParameter("b_num"));
-		return "list";
+		return loginChk(map, request, session, "list");
 	}
 
 	@RequestMapping(value = "/searchBoard", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String searchBoard(Locale locale, Model model, HttpSession session, HttpServletRequest request,
 			@RequestParam Map map) {
-
+		session = request.getSession(false);
+		map.put("id", session.getAttribute("id"));
 		List list = memberService.searchBoard(map);
-
 		return new Gson().toJson(list);
 	}
 
@@ -110,5 +109,18 @@ public class MainController {
 		List list = memberService.insertCard(map);
 		Map lastBoard = (Map) list.get(list.size() - 1);
 		return new Gson().toJson(lastBoard);
+	}
+
+	public String loginChk(@RequestParam Map map, HttpServletRequest request, HttpSession session, String route) {
+		session = request.getSession(false);
+		String id = (String) session.getAttribute("id");
+		String loginChk = null;
+		if (null == id) {
+			loginChk = "home";
+
+		} else {
+			loginChk = route;
+		}
+		return loginChk;
 	}
 }

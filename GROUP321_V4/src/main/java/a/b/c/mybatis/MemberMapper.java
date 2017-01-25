@@ -38,6 +38,8 @@ public interface MemberMapper {
 
 	public List selectCard(Map map);
 
+	public List selectBoardMember(Map map);
+
 	public int msgInsert(Map map);
 
 	public List msgSelect(Map map);

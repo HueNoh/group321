@@ -2,7 +2,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <link rel="stylesheet" href="/resources/css/websocket.atj.css">
 <div class="chatBoard">
-	<input type="hidden" value="${sessionScope.id}" id="id">
 	<div id="user"></div>
 	<div id="dis">
 		<div class="dis display"></div>
@@ -19,9 +18,9 @@
 
 <script type="text/javascript">
 	var inputMessage = document.getElementById('inputMessage');
-		
-	var sessionId = $('#id').val();
-	
+
+	var sessionId = '${sessionScope.id}';
+
 	var html = '';
 	var userHtml = '';
 

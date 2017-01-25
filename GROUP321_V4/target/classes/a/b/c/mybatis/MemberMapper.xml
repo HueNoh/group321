@@ -123,6 +123,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		}
 	</select>
 
+	<select id="selectBoardMember" resultType="java.util.HashMap"
+		parameterType="java.util.HashMap">
+
+		SELECT *
+		FROM tb_board_members
+		WHERE
+		m_id = #{id}
+
+
+
+	</select>
+
 
 	<insert id="msgInsert" parameterType="java.util.HashMap">
 		insert into tb_chat (

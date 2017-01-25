@@ -70,6 +70,12 @@ public class MemberDaoImpl implements MemberDaoInterface {
 	}
 
 	@Override
+	public List selectBoardMember(Map map) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.selectBoardMember(map);
+	}
+
+	@Override
 	public int insertList(Map map) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.insertList(map);

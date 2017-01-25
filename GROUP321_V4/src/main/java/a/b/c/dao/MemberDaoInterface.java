@@ -22,6 +22,8 @@ public interface MemberDaoInterface {
 
 	public List selectBoard();
 
+	public List selectBoardMember(Map map);
+
 	public int insertList(Map map);
 
 	public int updateList(Map map);
