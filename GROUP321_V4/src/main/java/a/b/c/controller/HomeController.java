@@ -59,9 +59,6 @@ public class HomeController {
 		// String page = null;
 
 		int result = memberService.loginChk(map);
-		System.out.println(result);
-		System.out.println(map.get("id"));
-		System.out.println(map.get("pw"));
 		model.addAttribute("loginChk", result);
 
 		String loginChk = null;
@@ -76,12 +73,6 @@ public class HomeController {
 			model.addAttribute("err", "아이디와 비밀번호를 확인해 주세요.");
 		}
 		return loginChk;
-	}
-
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model, @RequestParam Map map) {
-		// String page = null;
-		return "list";
 	}
 
 	@RequestMapping(value = "/hstest", method = RequestMethod.GET)

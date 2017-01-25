@@ -10,8 +10,9 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link rel="stylesheet" href="/resources/css/slidebars.css">
+<link rel="stylesheet" href="/resources/css/slidebars.atj.css">
 <link rel="stylesheet" href="/resources/css/style.css">
-<script src="/resources/js/slidebars.atj.js"></script>
+<link rel="stylesheet" href="/resources/css/style.css">
 <style>
 #addList, .createList, .list {
 	width: 150px;
@@ -32,7 +33,7 @@
 }
 </style>
 <script>
-	/* var webSocket = new WebSocket('ws://211.183.8.14/socket');
+	var webSocket = new WebSocket('ws://211.183.8.14/socket');
 	webSocket.onerror = function(event) {
 		onError(event)
 	};
@@ -43,7 +44,7 @@
 	webSocket.onmessage = function(event) {
 		onMessage(event)
 
-	}; */
+	}; 
 
 	var b_num = '${b_num}';
 	window.onload = function() {
@@ -51,7 +52,7 @@
 			url : '/main/searchList',
 			method : 'post',
 			data : {
-				bnum : '${b_num}'
+				bnum : b_num
 			}
 		}).done(function(msg) {
 			var listArr = JSON.parse(msg);
@@ -67,7 +68,7 @@
 					url : '/main/searchCard',
 					method : 'post',
 					data : {
-						bnum : '${b_num}',
+						bnum : b_num,
 						lnum : l_num
 					}
 				}).done(function(msg) {
@@ -206,8 +207,7 @@
 				<li class="link"><a href="#" class="link_tag1">Board</a></li>
 				<li class="link"><a href="#" class="link_tag2" id="myBtn">History</a>
 				</li>
-				<li class="link"><a href="#" onclick="openChat();"
-					class="link_tag3">Chatting</a></li>
+				<li class="link"><a href="#" onclick="openChat();" class="link_tag3 js-close-right-slidebar">Chatting</a></li>
 				<li class="link"><a href="#" class="link_tag4">File</a></li>
 				<li class="link"><a href="#" class="link_tag5">Members</a></li>
 			</ul>
@@ -266,6 +266,14 @@
 			</p>
 		</div>
 	</div>
+	<div id="mySidenavChat" class="sidenav-chat">
+		<a href="javascript:void(0)" class="closebtn" onclick="closeChat()">&times;</a>
+		<jsp:include page="websocket.jsp"></jsp:include>
+	</div>
+	<div id="cardModal" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+		</div>
 	</div>
 
 
@@ -273,6 +281,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script src="/resources/js/slidebars.js"></script>
+<script src="/resources/js/slidebars.atj.js"></script>
 <script src="/resources/js/scripts.js"></script>
 
 </html>
