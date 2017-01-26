@@ -75,11 +75,4 @@ public class HomeController {
 		return loginChk;
 	}
 
-	@RequestMapping(value = "/hstest", method = RequestMethod.GET)
-	public String hstest(Model model, @RequestParam Map map) {
-
-		return "hs_test";
-
-	}
-
 }
