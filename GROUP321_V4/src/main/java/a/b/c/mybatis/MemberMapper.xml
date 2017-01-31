@@ -129,7 +129,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT *
 		FROM tb_board_members
 		WHERE
-		m_id = #{id}
+		b_num=#{b_num}
+		and
+		m_id= #{id}
 
 
 

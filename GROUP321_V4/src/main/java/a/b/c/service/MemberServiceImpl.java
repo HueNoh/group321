@@ -28,11 +28,14 @@ public class MemberServiceImpl implements MemberServiceInterface {
 	public List searchBoard(Map map) {
 		// TODO Auto-generated method stub
 
-		// 자신의 아이디가 포함된 보더검색
-		// return memberDao.selectBoardMember(map);
-
 		// 보더 전체검색
 		return memberDao.selectBoard();
+	}
+
+	@Override
+	public List selectBoardMember(Map map) {
+
+		return memberDao.selectBoardMember(map);
 	}
 
 	@Override

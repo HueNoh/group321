@@ -8,7 +8,6 @@
 <title>Board</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link rel="stylesheet" href="/resources/css/slidebars.css">
 <link rel="stylesheet" href="/resources/css/style.css">
 <style>
 #addBoard, .createBoard, .board {
@@ -82,7 +81,6 @@
 </script>
 </head>
 <body>
-	${sessionScope.id }
 	<nav>
 		<div align="center" class="nav">
 			<img src="/resources/images/logo.JPG" alt="Main" class="main_img">
@@ -95,7 +93,5 @@
 	</div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-	<script src="/resources/js/slidebars.js"></script>
-	<script src="/resources/js/scripts.js"></script>
 </body>
 </html>

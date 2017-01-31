@@ -25,6 +25,7 @@
 	var userHtml = '';
 
 	function onMessage(event) {
+
 		var spMsg = event.data;
 		var arrMsg = spMsg.split(":");
 		var id = arrMsg[0];
@@ -98,16 +99,12 @@
 	}
 	function onOpen(event) {
 		console.log('open');
-		var bnArr = {
-			b_num : '${b_num}'
-		};
 
-		var jsonStr = JSON.stringify(bnArr);
 		$.ajax({
 			method : 'post',
 			url : '/chat/viewMsg',
 			data : {
-				JSON : jsonStr
+				b_num : '${b_num}'
 			}
 		}).done(
 				function(json) {
@@ -177,6 +174,12 @@
 
 	function onError(event) {
 		alert(event.data);
+	}
+
+	function onClose(event) {
+
+		alert('close');
+
 	}
 
 	function send() {

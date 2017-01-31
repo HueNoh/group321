@@ -79,10 +79,7 @@ public class ChatController {
 
 		Gson gson = new Gson();
 
-		JsonObject jb_num = gson.fromJson((String) map.get("JSON"), JsonObject.class);
-		JsonElement je_bNum = jb_num.get("b_num");
-		int b_num = je_bNum.getAsInt();
-
+		int b_num = Integer.valueOf((String) map.get("b_num"));
 		JsonArray jArr = new JsonArray();
 		JsonObject jObj = new JsonObject();
 		JsonArray juArr = new JsonArray();
@@ -121,7 +118,6 @@ public class ChatController {
 			e.printStackTrace();
 		}
 
-		System.out.println(gson.toJson(jObj));
 		return gson.toJson(jObj);
 	}
 

@@ -33,6 +33,15 @@
 }
 </style>
 <script>
+	document.onkeydown = refl;
+	
+	function refl() {
+		if(event.keyCode == 116){
+			location.href='/main/board';
+			return false;
+		}
+	}
+	
 	var webSocket = new WebSocket('ws://211.183.8.14/socket');
 	webSocket.onerror = function(event) {
 		onError(event)
@@ -45,6 +54,7 @@
 		onMessage(event)
 
 	}; 
+	
 
 	var b_num = '${b_num}';
 	window.onload = function() {
@@ -77,17 +87,29 @@
 					$.each(cardArr, function(i) {
 						var cardDiv = document.createElement('div');
 						var c_num= cardArr[i].c_num;
-
-						cardDiv.id = 'card' + c_num;
+						
+						cardDiv.id = id + 'card' + c_num;
 						cardDiv.className = 'card';
-
+						
+						
+						
 						var aCard = document.createElement('a');
 						var createCardText = document.createTextNode('card'+c_num );
-
+						
+						
 						aCard.setAttribute('href', '#');
+						aCard.setAttribute('id', id + 'card_'+c_num);
+						aCard.setAttribute('className', 'card');
 						aCard.appendChild(createCardText);
 						cardDiv.appendChild(aCard);
 						div.appendChild(cardDiv);
+						
+						document.getElementById(id+ 'card_'+c_num).onclick= function(){
+							console.log('card_'+c_num);
+							
+							 cardModal.style.display = "block";
+						}
+						
 
 					});
 
@@ -113,6 +135,7 @@
 
 		});
 	};
+	
 
 	function addList() {
 		$.ajax({
@@ -148,13 +171,16 @@
 	}
 
 
+
+
+
+
 	function addCard(l_num, id) {
-		console.log(id)
 		$.ajax({
 			method : 'post',
 			url : '/main/createCard',
 			data : {
-				id : 'test1',
+				id : '${sessionScope.id}',
 				title : 'TestTitle',
 				bnum : b_num,
 				lnum : l_num
@@ -167,16 +193,26 @@
 			var newCard = document.createElement('div');
 			var c_num = cardArr.c_num;
 
-			newCard.id = 'card' + c_num;
+			newCard.id = id +'card' + c_num;
 			newCard.className = 'card';
 
 			var aCard = document.createElement('a');
 			var createCardText = document.createTextNode('card' + c_num);
 
 			aCard.setAttribute('href', '#');
+			aCard.setAttribute('id', id + 'card_' + c_num);
+			aCard.setAttribute('className', 'card');
+
 			aCard.appendChild(createCardText);
 			newCard.appendChild(aCard);
 			document.getElementById(id).appendChild(newCard);
+
+			document.getElementById(id + 'card_' + c_num).onclick = function() {
+				console.log('add card : card_' + c_num);
+
+				cardModal.style.display = "block";
+			}
+
 		});
 	}
 </script>
@@ -201,7 +237,7 @@
 
 	<div off-canvas="slidebar-2 right shift">
 		<ul class="menu">
-			<a class="menu-icon" href="#""><i class="icon-reorder"></i></a>
+			<a class="menu-icon" href="#"><i class="icon-reorder"></i></a>
 			<ul class="side-menu">
 				<h2 class="title">Menu</h2>
 				<li class="link"><a href="#" class="link_tag1">Board</a></li>
@@ -219,9 +255,9 @@
 		<jsp:include page="websocket.jsp"></jsp:include>
 	</div> --%>
 
-	<div id=myModal class="modal">
+	<div id="myModal" class="modal">
 		<div class="modal-content">
-			<span class="close">&times;</span>
+			<span id="hisClose" class="close">&times;</span>
 			<p>
 				Minsik Kim added slide menu study to to do listJan 16 at 3:59 PM<br>
 				<br> MKMinsik Kim added menu view study to to do listJan 16 at
@@ -272,7 +308,8 @@
 	</div>
 	<div id="cardModal" class="modal">
 		<div class="modal-content">
-			<span class="close">&times;</span>
+			<span id="cardClose" class="close">&times;</span>
+			카드
 		</div>
 	</div>
 

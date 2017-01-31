@@ -5,11 +5,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.servlet.annotation.WebListener;
 import javax.websocket.OnClose;
+import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -77,24 +82,25 @@ public class WebSocket {
 		// Add session to the connected sessions set
 		clients.add(session);
 	}
+	
 
 	@OnClose
 	public void onClose(Session session) {
 		// Remove session from the connected sessions set
-		int border_num = (int) bs_num.get(clients.indexOf(session));
+		int remobeB_num = (int) bs_num.get(clients.indexOf(session));
 
 		users.remove(clients.indexOf(session));
 		bs_num.remove(clients.indexOf(session));
 		clients.remove(session);
 
-		for (int i = 0; i < users.size(); i++) {
+		for (int i = 0; i < clients.size(); i++) {
 			Gson gson = new Gson();
 			JsonObject jObj = new JsonObject();
 
 			jObj.addProperty("userId", (String) users.get(i));
 			jObj.addProperty("msg", "close");
 			jObj.addProperty("access", "close");
-			jObj.addProperty("b_num", border_num);
+			jObj.addProperty("b_num", remobeB_num);
 
 			onMessage(gson.toJson(jObj), session);
 		}

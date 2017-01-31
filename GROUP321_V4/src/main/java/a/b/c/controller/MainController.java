@@ -43,7 +43,25 @@ public class MainController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, @RequestParam Map map, HttpServletRequest request, HttpSession session) {
 		model.addAttribute("b_num", request.getParameter("b_num"));
-		return loginChk(map, request, session, "list");
+
+		session = request.getSession(false);
+		map.put("id", session.getAttribute("id"));
+		map.put("bnum", map.get("b_num"));
+		try {
+
+			List list = memberService.selectBoardMember(map);
+			System.out.println(list.size());
+			if (0 < list.size()) {
+				return loginChk(map, request, session, "list");
+			} else {
+				System.out.println("null board");
+				return "redirect:/main/board";
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return "redirect:/main/board";
+		}
+
 	}
 
 	@RequestMapping(value = "/searchBoard", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
@@ -71,9 +89,7 @@ public class MainController {
 	public String searchCard(Locale locale, Model model, HttpSession session, HttpServletRequest request,
 			@RequestParam Map map) {
 
-		System.out.println("!@#!@#!@#!");
 		List list = memberService.searchCard(map);
-		System.out.println(list);
 
 		return new Gson().toJson(list);
 	}
