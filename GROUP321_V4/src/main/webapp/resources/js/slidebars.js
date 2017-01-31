@@ -14,7 +14,6 @@ var cardModal = document.getElementById('cardModal');
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
 
-
 // Get the <span> element that closes the modal
 var hisClose = document.getElementById("hisClose");
 var cardModal = document.getElementById("cardModal");
@@ -28,7 +27,7 @@ btn.onclick = function() {
 hisClose.onclick = function() {
 	modal.style.display = "none";
 }
-cardModal.onclick = function() {
+cardClose.onclick = function() {
 	cardModal.style.display = "none";
 }
 
@@ -36,6 +35,8 @@ cardModal.onclick = function() {
 window.onclick = function(event) {
 	if (event.target == modal) {
 		modal.style.display = "none";
+	} else if (event.target == cardModal) {
+		cardModal.style.display = "none";
 	}
 }
 

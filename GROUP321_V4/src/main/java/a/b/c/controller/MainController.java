@@ -127,6 +127,17 @@ public class MainController {
 		return new Gson().toJson(lastBoard);
 	}
 
+	@RequestMapping(value = "/selectCardDetail", method = { RequestMethod.POST,
+			RequestMethod.GET }, produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String selectCardDetail(Locale locale, Model model, HttpSession session, HttpServletRequest request,
+			@RequestParam Map map) {
+		System.out.println(map);
+		List list = memberService.selectCardDetail(map);
+		System.out.println(list);
+		return new Gson().toJson(list);
+	}
+
 	public String loginChk(@RequestParam Map map, HttpServletRequest request, HttpSession session, String route) {
 		session = request.getSession(false);
 		String id = (String) session.getAttribute("id");

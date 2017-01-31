@@ -124,6 +124,12 @@ public class MemberDaoImpl implements MemberDaoInterface {
 	}
 
 	@Override
+	public List selectCardDetail(Map map) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.selectCardDetail(map);
+	}
+
+	@Override
 	public int msgInsert(Map map) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.msgInsert(map);

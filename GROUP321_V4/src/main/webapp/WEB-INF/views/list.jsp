@@ -22,7 +22,7 @@
 	float: left;
 }
 
-.card, .addCard {
+.list-card, .addCard {
 	width: 100%;
 	border: 1px solid black;
 	float: left;
@@ -57,6 +57,7 @@
 	
 
 	var b_num = '${b_num}';
+	
 	window.onload = function() {
 		$.ajax({
 			url : '/main/searchList',
@@ -88,27 +89,17 @@
 						var cardDiv = document.createElement('div');
 						var c_num= cardArr[i].c_num;
 						
-						cardDiv.id = id + 'card' + c_num;
-						cardDiv.className = 'card';
+						cardDiv.className = 'list-card';
+						cardDiv.onclick =function() {
+							cardView(b_num,l_num,c_num)
+						};
 						
-						
-						
-						var aCard = document.createElement('a');
 						var createCardText = document.createTextNode('card'+c_num );
 						
 						
-						aCard.setAttribute('href', '#');
-						aCard.setAttribute('id', id + 'card_'+c_num);
-						aCard.setAttribute('className', 'card');
-						aCard.appendChild(createCardText);
-						cardDiv.appendChild(aCard);
+						cardDiv.appendChild(createCardText);
 						div.appendChild(cardDiv);
 						
-						document.getElementById(id+ 'card_'+c_num).onclick= function(){
-							console.log('card_'+c_num);
-							
-							 cardModal.style.display = "block";
-						}
 						
 
 					});
@@ -126,6 +117,7 @@
 				aTag.setAttribute('onClick', 'addCard(' + l_num
 						+ ',\'' + id + '\')');
 				aTag.appendChild(createAText);
+				
 				addCardDiv.appendChild(aTag); 
 				div.appendChild(addCardDiv); 
 
@@ -193,27 +185,36 @@
 			var newCard = document.createElement('div');
 			var c_num = cardArr.c_num;
 
-			newCard.id = id +'card' + c_num;
-			newCard.className = 'card';
-
-			var aCard = document.createElement('a');
+			/* newCard.id = 'card' + c_num; */
+			newCard.className = 'list-card';
+			newCard.onclick = function() {
+				cardView(b_num,l_num,c_num)
+			};
 			var createCardText = document.createTextNode('card' + c_num);
 
-			aCard.setAttribute('href', '#');
-			aCard.setAttribute('id', id + 'card_' + c_num);
-			aCard.setAttribute('className', 'card');
 
-			aCard.appendChild(createCardText);
-			newCard.appendChild(aCard);
+			newCard.appendChild(createCardText);
+		
 			document.getElementById(id).appendChild(newCard);
-
-			document.getElementById(id + 'card_' + c_num).onclick = function() {
-				console.log('add card : card_' + c_num);
-
-				cardModal.style.display = "block";
-			}
-
 		});
+		
+	}
+
+	function cardView(b_num, l_num, c_num) {
+		$.ajax({
+			method : 'post',
+			url : '/main/selectCardDetail',
+			data : {
+				bnum : b_num,
+				lnum : l_num,
+				cnum : c_num
+			}
+		}).done(function(msg) {
+
+			console.log(b_num + l_num + c_num);
+			cardModal.style.display = "block";
+		});
+
 	}
 </script>
 </head>
@@ -308,8 +309,9 @@
 	</div>
 	<div id="cardModal" class="modal">
 		<div class="modal-content">
-			<span id="cardClose" class="close">&times;</span>
-			카드
+			<p><span id="cardClose" class="close">&times;</span></p>
+			<div id="cardView">
+				</div>
 		</div>
 	</div>
 

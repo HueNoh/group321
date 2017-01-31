@@ -12,7 +12,9 @@ public interface MemberServiceInterface {
 	public List searchList(Map map);
 
 	public List searchCard(Map map);
-	
+
+	public List selectCardDetail(Map map);
+
 	public List selectBoardMember(Map map);
 
 	public int msgInsert(Map map) throws Exception;

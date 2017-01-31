@@ -37,6 +37,7 @@ public interface MemberMapper {
 	public int deleteCard(Map map);
 
 	public List selectCard(Map map);
+	public List selectCardDetail(Map map);
 
 	public List selectBoardMember(Map map);
 

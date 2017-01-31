@@ -43,6 +43,11 @@ public class MemberServiceImpl implements MemberServiceInterface {
 		// TODO Auto-generated method stub
 		return memberDao.selectCard(map);
 	}
+	@Override
+	public List selectCardDetail(Map map) {
+		// TODO Auto-generated method stub
+		return memberDao.selectCardDetail(map);
+	}
 
 	@Override
 	public List searchList(Map map) {
