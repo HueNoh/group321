@@ -129,6 +129,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		selectCardDetail(#{bnum},#{lnum},#{cnum})
 		}
 	</select>
+	<select id="moveList" statementType="CALLABLE"
+		resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		{
+		call
+		moveList(#{listArr},#{length},#{bnum})
+		}
+	</select>
 
 	<select id="selectBoardMember" resultType="java.util.HashMap"
 		parameterType="java.util.HashMap">

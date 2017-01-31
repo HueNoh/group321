@@ -94,6 +94,9 @@ public class MemberServiceImpl implements MemberServiceInterface {
 	public List selectBoard() {
 		return memberDao.selectBoard();
 	}
+	public List moveList(Map map) {
+		return memberDao.moveList(map);
+	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)

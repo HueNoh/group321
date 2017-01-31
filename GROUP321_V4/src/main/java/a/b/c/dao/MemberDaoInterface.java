@@ -41,6 +41,7 @@ public interface MemberDaoInterface {
 	public List selectCard(Map map);
 
 	public List selectCardDetail(Map map);
+	public List moveList(Map map);
 
 	public int msgInsert(Map map);
 

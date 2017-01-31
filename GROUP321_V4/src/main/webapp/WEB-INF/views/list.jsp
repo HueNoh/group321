@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/resources/css/slidebars.atj.css">
 <link rel="stylesheet" href="/resources/css/style.css">
 <link rel="stylesheet" href="/resources/css/style.css">
+<!-- <link rel="stylesheet" href="/resources/css/jquery-ui.css"> -->
 <style>
 #addList, .createList, .list {
 	width: 150px;
@@ -33,6 +34,8 @@
 }
 </style>
 <script>
+
+
 	document.onkeydown = refl;
 	
 	function refl() {
@@ -55,10 +58,51 @@
 
 	}; 
 	
+	
+
 
 	var b_num = '${b_num}';
 	
+	
 	window.onload = function() {
+		$('#viewList').sortable({
+			update : function() {
+				var result = $('#viewList').sortable('toArray');
+				console.log('value: ' + result);
+ 				console.log(result.length);
+ 			
+ 				
+ 				var moveData=new Object();
+ 				var msg= '';
+ 				for(var i = 0 ; i < result.length; i++){
+ 					if(i<(result.length-1)){ 
+						msg+= result[i]+',';
+					}else{
+						msg+= result[i];
+					}
+ 					
+ 				}
+ 				
+ 				console.log(msg);
+ 				moveData = result;
+ 				
+ 				console.log(JSON.stringify(moveData));
+ 				var data = JSON.stringify(moveData);
+ 				$.ajax({
+ 					url : '/main/moveList',
+ 					method : 'post',
+ 					data : {
+ 						data : msg,
+ 						length : result.length,
+ 						bnum : b_num
+ 					}
+ 					
+ 				}).done();
+ 				
+			}
+
+		});
+		
 		$.ajax({
 			url : '/main/searchList',
 			method : 'post',
@@ -70,9 +114,9 @@
 			$.each(listArr, function(i) {
 
 				var l_num = listArr[i].l_num;
-				var id='list' + l_num;
+				var id = listArr[i].seq;
 				var div = document.createElement('div');
-				div.id = 'list' + l_num;
+				div.id = id;
 				div.className = 'list';
 			
 				$.ajax({
@@ -134,7 +178,7 @@
 			method : 'post',
 			url : '/main/createList',
 			data : {
-				id : 'test1',
+				id : '${sessionScope.id}',
 				title : 'TestTitle',
 				bnum : b_num
 
@@ -143,7 +187,7 @@
 		}).done(function(msg) {
 				
 			var arrList = JSON.parse(msg);
-			var id='List' + arrList.l_num;
+			var id = arrList.seq;
 			var div = document.createElement('div');
 			div.id = id;
 			div.className = 'list';
@@ -158,7 +202,7 @@
 			aTag.appendChild(createAText);
 			div.appendChild(aTag);
 
-			document.getElementById('createList').appendChild(div);
+			document.getElementById('viewList').appendChild(div);
 		});
 	}
 
@@ -211,11 +255,13 @@
 			}
 		}).done(function(msg) {
 
-			console.log(b_num + l_num + c_num);
+			console.log(msg);
 			cardModal.style.display = "block";
 		});
 
 	}
+
+	
 </script>
 </head>
 <body>
@@ -230,7 +276,6 @@
 		</p>
 		<div class="content">
 			<div id="viewList"></div>
-			<div id="createList"></div>
 			<div id="addList" onclick="addList();">Create</div>
 		</div>
 
@@ -309,16 +354,28 @@
 	</div>
 	<div id="cardModal" class="modal">
 		<div class="modal-content">
-			<p><span id="cardClose" class="close">&times;</span></p>
+			<p>
+				<span id="cardClose" class="close">&times;</span>
+			</p>
+	
 			<div id="cardView">
+				<div id="card-header"></div>
+				<p>add Comment</p>
+				<div id="card-comment">
+					<textarea cols="25" rows="5"></textarea>
+
 				</div>
-		</div>
+				<p>댓글</p>
+				<div id="card-repl"></div>
+			</div>
+		</div> 
 	</div>
 
 
 </body>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="/resources/js/jquery-ui.js"></script>
 <script src="/resources/js/slidebars.js"></script>
 <script src="/resources/js/slidebars.atj.js"></script>
 <script src="/resources/js/scripts.js"></script>

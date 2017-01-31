@@ -1,8 +1,10 @@
 package a.b.c.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -50,11 +52,10 @@ public class MainController {
 		try {
 
 			List list = memberService.selectBoardMember(map);
-			System.out.println(list.size());
 			if (0 < list.size()) {
+
 				return loginChk(map, request, session, "list");
 			} else {
-				System.out.println("null board");
 				return "redirect:/main/board";
 			}
 		} catch (Exception e) {
@@ -80,7 +81,6 @@ public class MainController {
 			@RequestParam Map map) {
 
 		List list = memberService.searchList(map);
-
 		return new Gson().toJson(list);
 	}
 
@@ -110,7 +110,6 @@ public class MainController {
 	@ResponseBody
 	public String createList(Locale locale, Model model, HttpSession session, HttpServletRequest request,
 			@RequestParam Map map) {
-
 		List list = memberService.insertList(map);
 		Map lastBoard = (Map) list.get(list.size() - 1);
 		return new Gson().toJson(lastBoard);
@@ -132,10 +131,21 @@ public class MainController {
 	@ResponseBody
 	public String selectCardDetail(Locale locale, Model model, HttpSession session, HttpServletRequest request,
 			@RequestParam Map map) {
-		System.out.println(map);
 		List list = memberService.selectCardDetail(map);
-		System.out.println(list);
 		return new Gson().toJson(list);
+	}
+
+	@RequestMapping(value = "/moveList", method = { RequestMethod.POST,
+			RequestMethod.GET }, produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String moveList(Locale locale, Model model, HttpSession session, HttpServletRequest request,
+			@RequestParam Map map) {
+
+		System.out.println(map);
+		map.put("listArr", map.get("data"));
+		List list = memberService.moveList(map);
+		System.out.println(list);
+		return new Gson().toJson("aa");
 	}
 
 	public String loginChk(@RequestParam Map map, HttpServletRequest request, HttpSession session, String route) {
