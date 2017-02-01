@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/resources/css/slidebars.atj.css">
 <link rel="stylesheet" href="/resources/css/style.css">
 <link rel="stylesheet" href="/resources/css/style.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <!-- <link rel="stylesheet" href="/resources/css/jquery-ui.css"> -->
 <style>
 #addList, .createList, .list {
@@ -32,6 +33,20 @@
 #content {
 	height: 100%;
 }
+
+.card-detail-main {
+	float: left;
+}
+
+.card-detail-sidebar {
+	float: right;
+}
+
+.card-detail-sidebar>button {
+	text-align: left;
+	width: 120px;
+}
+
 </style>
 <script>
 
@@ -354,23 +369,33 @@
 	</div>
 	<div id="cardModal" class="modal">
 		<div class="modal-content">
-			<p>
-				<span id="cardClose" class="close">&times;</span>
-			</p>
-	
-			<div id="cardView">
-				<div id="card-header"></div>
-				<p>add Comment</p>
-				<div id="card-comment">
-					<textarea cols="25" rows="5"></textarea>
-
+			<p><span id="cardClose" class="close">&times;</span></p>
+			<div id="cardView" class="cardView" style="overflow: hidden;">
+				<div class="card-detail-main" >
+					<h1>card title</h1>
+					<h3>Add Comment</h3>
+					<form action="">
+						<textarea rows="10" cols="80"></textarea>
+					</form>
 				</div>
-				<p>댓글</p>
-				<div id="card-repl"></div>
+				<div class="card-detail-sidebar" >
+					<button>
+						<span class="glyphicon glyphicon-star">&nbsp;Label</span>
+					</button>
+					<br><br>
+					<button >
+						<span class="glyphicon glyphicon-plus-sign">&nbsp;Attachment</span>
+					</button>
+					<br><br>
+					<button >
+						<span class="glyphicon glyphicon-remove-circle">&nbsp;Delete</span>
+					</button>
+					<br><br>
+				</div>
 			</div>
-		</div> 
+			
+		</div>
 	</div>
-
 
 </body>
 <script
